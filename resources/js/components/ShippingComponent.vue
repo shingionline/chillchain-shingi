@@ -4,8 +4,8 @@
         <div class="row py-4">
             <div class="col"><h3>List of Shippers</h3></div>
             <div class="col text-end">
-                <button type="button" class="btn btn-success" @click="showModal()">Add shipper</button>
-                <button type="button" class="btn btn-primary ms-2">Add contact</button>
+                <button type="button" class="btn btn-success" @click="showModal('add-shipper')">Add shipper</button>
+                <button type="button" class="btn btn-primary ms-2" @click="showModal('add-contact')">Add contact</button>
             </div>
         </div>
 
@@ -28,41 +28,23 @@
       <td>Otto</td>
       <td>@mdo</td>
       <td>
-        <button type="button" class="btn btn-primary" title="Show contacts"><i class="fas fa-user"></i></button>
-        <button type="button" class="btn btn-success" title="Edit shipper"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-danger" title="Delete shipper"><i class="fas fa-trash"></i></button>
+        <button type="button" class="btn btn-primary" title="Show contacts" @click="showModal('show-contacts')"><i class="fas fa-user"></i></button>
+        <button type="button" class="btn btn-success" title="Edit shipper" @click="showModal('edit-shipper')"><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-danger" title="Delete shipper" @click="showModal('delete-shipper')"><i class="fas fa-trash"></i></button>
     </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>
-        <button type="button" class="btn btn-primary" title="Show contacts"><i class="fas fa-user"></i></button>
-        <button type="button" class="btn btn-success" title="Edit shipper"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-danger" title="Delete shipper"><i class="fas fa-trash"></i></button>
-    </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>
-        <button type="button" class="btn btn-primary" title="Show contacts"><i class="fas fa-user"></i></button>
-        <button type="button" class="btn btn-success" title="Edit shipper"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-danger" title="Delete shipper"><i class="fas fa-trash"></i></button>
-      </td>
     </tr>
   </tbody>
 </table>
 </div>
 <div class="row text-end my-3"><small class="font-italic">Chill-Chain assessment by Shingi Mushipe</small></div>
 
-<!-- Add shipper modal -->
+<!-- Modal components -->
 
-<add-shipper-modal></add-shipper-modal>
+<Add-shipper-modal></Add-shipper-modal>
+<Add-contact-modal></Add-contact-modal>
+<Show-contacts-modal></Show-contacts-modal>
+<Edit-shipper-modal></Edit-shipper-modal>
+<Delete-shipper-modal></Delete-shipper-modal>
 
     </div>
 </template>
@@ -71,11 +53,12 @@
     export default {
         
 
-        methods: {
+      methods: {
 
-    showModal() {
-        this.$bvModal.show('bv-modal-example');
+      showModal(name) {
+        this.$bvModal.show(`bv-modal-${name}`);
       },
+
     }
 
     }

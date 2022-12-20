@@ -1,6 +1,6 @@
 <template>
-  <b-modal id="bv-modal-add-shipper" hide-footer>
-    <template #modal-title><b>Add Shipper</b></template>
+  <b-modal id="bv-modal-delete-shipper" hide-footer>
+    <template #modal-title><b>Delete Shipper</b></template>
     <div>
       <form>
         <div class="form-group pb-2">
