@@ -132,6 +132,7 @@ export default {
     },
 
     showModal(name, shipper_id, shipper_name) {
+      
       this.selected_shipper = '{"id":' + shipper_id + ', "name":"' + shipper_name + '"}';
 
       if (name == "show-contacts") {
@@ -153,6 +154,7 @@ export default {
 </script>
 
 <style scoped>
+h3 { font-family: 'Lexend Deca', sans-serif; font-size: 2rem !important;}
 h3, small { color: #fff; }
 small { font-style: italic; }
 </style>
