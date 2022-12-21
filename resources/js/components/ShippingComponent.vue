@@ -4,14 +4,21 @@
         <div class="row py-4">
             <div class="col"><h3>List of Shippers</h3></div>
             <div class="col text-end">
-                <button type="button" class="btn btn-success" @click="showModal('add-shipper')">Add shipper</button>
-                <button type="button" class="btn btn-primary ms-2" @click="showModal('add-contact')">Add contact</button>
+                <button type="button" class="btn btn-success" @click="showModal('add-shipper',null)">Add shipper</button>
             </div>
         </div>
 
         <div class="card shadow">
 
-<table class="table table-hover mb-0">
+      <div v-if="loading_shippers" class="p-2 text-center"> 
+        <b-spinner label="Loading..."></b-spinner>
+      </div>
+
+      <div v-else-if="shippers.length == 0" class="p-2 text-center">
+      No shippers found
+      </div>
+
+<table class="table table-hover mb-0" v-else>
     <thead>
     <tr>
       <th scope="col">Company Name</th>
@@ -22,15 +29,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+    <tr v-for="(shipper, index) in shippers" :key="index">
+      <th>{{shipper.name}}</th>
+      <td>{{shipper.address}}</td>
+      <td></td>
+      <td></td>
       <td>
-        <button type="button" class="btn btn-primary" title="Show contacts" @click="showModal('show-contacts')"><i class="fas fa-user"></i></button>
-        <button type="button" class="btn btn-success" title="Edit shipper" @click="showModal('edit-shipper')"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-danger" title="Delete shipper" @click="showModal('delete-shipper')"><i class="fas fa-trash"></i></button>
+        <button type="button" class="btn btn-primary" title="Show contacts" @click="showModal('show-contacts',`${shipper.id}`)"><i class="fas fa-user"></i></button>
+        <button type="button" class="btn btn-success" title="Edit shipper" @click="showModal('edit-shipper',`${shipper.id}`)"><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-danger" title="Delete shipper" @click="showModal('delete-shipper',`${shipper.id}`)"><i class="fas fa-trash"></i></button>
     </td>
     </tr>
   </tbody>
@@ -42,7 +49,7 @@
 
 <Add-shipper-modal></Add-shipper-modal>
 <Add-contact-modal></Add-contact-modal>
-<Show-contacts-modal></Show-contacts-modal>
+<Show-contacts-modal :shipper_id="selected_shipper" :contacts="contacts"></Show-contacts-modal>
 <Edit-shipper-modal></Edit-shipper-modal>
 <Delete-shipper-modal></Delete-shipper-modal>
 
@@ -51,11 +58,60 @@
 
 <script>
     export default {
+
+      data() {
+    return {
+      shippers: [],
+      contacts: [],
+      selected_shipper: null,
+      loading_shippers: false,
+    };
+  },
+
+  created() {
+
+    this.getShippers();
+    
+  },
         
 
       methods: {
 
-      showModal(name) {
+        getShippers() {
+
+      this.loading_shippers = true;
+
+      axios
+        .get("/shippers/get-all/")
+        .then((response) => {
+          this.shippers = response.data;
+          this.loading_shippers = false;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+          this.loading_shippers = false;
+        });
+    },
+
+    getContacts() {
+
+      this.contacts = [];
+
+      axios
+        .get(`/contacts/get/${this.selected_shipper}`)
+        .then((response) => {
+          this.contacts = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+      showModal(name,shipper_id) {
+        
+        this.selected_shipper = shipper_id;
+        this.getContacts();
         this.$bvModal.show(`bv-modal-${name}`);
       },
 
