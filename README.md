@@ -6,4 +6,4 @@
 - npm install
 - rpm run dev
 - php artisan serve
-- visit <a href="http://127.0.0.1:8000" target="">http://127.0.0.1:8000</a>
+- visit <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a>
