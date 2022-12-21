@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shipper;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ShipperController extends Controller
@@ -15,16 +16,14 @@ class ShipperController extends Controller
     public function get_all()
     {
         // get all shippers with their primary contact
-        $shippers = Shipper::with(['contacts' => function ($query) {
+        return Shipper::with(['contacts' => function ($query) {
             $query->where('primary', 1);
         }])
             ->orderBy('id', 'DESC')
             ->get();
-
-        return $shippers;
     }
 
-    public function new(Request $request)
+    public function new(Request $request): JsonResponse
     {
         $data = $request->all();
 
@@ -39,7 +38,7 @@ class ShipperController extends Controller
         return response()->json(['success' => true, 'message' => 'Shipper created successfully']);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): JsonResponse
     {
         $data = $request->all();
 
@@ -55,7 +54,7 @@ class ShipperController extends Controller
         return response()->json(['success' => true, 'message' => 'Shipper updated successfully']);
     }
 
-    public function delete($id)
+    public function delete($id): JsonResponse
     {
         // delete the shipper
         $shipper = Shipper::find($id);

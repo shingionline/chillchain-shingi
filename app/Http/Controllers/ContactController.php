@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -12,7 +13,7 @@ class ContactController extends Controller
         return Contact::where('shipper_id', $id)->orderBy('id', 'DESC')->get();
     }
 
-    public function make_primary(Request $request)
+    public function make_primary(Request $request): JsonResponse
     {
         $data = $request->all();
 
@@ -28,7 +29,7 @@ class ContactController extends Controller
         return response()->json(['success' => true, 'message' => 'Contact updated successfully']);
     }
 
-    public function delete($id)
+    public function delete($id): JsonResponse
     {
 
         $contact = Contact::find($id);
@@ -37,7 +38,7 @@ class ContactController extends Controller
         return response()->json(['success' => true, 'message' => 'Contact deleted successfully']);
     }
 
-    public function new(Request $request)
+    public function new(Request $request): JsonResponse
     {
 
         $data = $request->all();
