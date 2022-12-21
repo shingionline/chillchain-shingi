@@ -9,9 +9,7 @@ class ShipperController extends Controller
 {
     public function get_single($id)
     {
-        $shipper = Shipper::find($id);
-
-        return $shipper;
+        return Shipper::find($id);
     }
 
     public function get_all()
