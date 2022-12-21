@@ -47,9 +47,9 @@ export default {
 
     saveShipper() {
       if (!this.new_shipper.name) {
-        this.sweetfire("Please enter company name");
+        this.customAlert("Please enter company name");
       } else if (!this.new_shipper.address) {
-        this.sweetfire("Please enter company address");
+        this.customAlert("Please enter company address");
       }
 
       else {
@@ -75,7 +75,7 @@ export default {
 
     },
 
-    sweetfire(text) {
+    customAlert(text) {
       Swal.fire({
         title: text,
         showConfirmButton: false,

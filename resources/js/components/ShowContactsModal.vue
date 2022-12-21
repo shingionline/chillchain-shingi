@@ -121,9 +121,9 @@ export default {
       let selected_shipper = JSON.parse(this.selected_shipper);
 
       if (!this.new_contact.name) {
-        this.sweetfire("Please enter contact name");
+        this.customAlert("Please enter contact name");
       } else if (!this.new_contact.phone) {
-        this.sweetfire("Please enter contact phone number");
+        this.customAlert("Please enter contact phone number");
       }
 
       else {
@@ -173,7 +173,7 @@ export default {
         });
     },
 
-    sweetfire(text) {
+    customAlert(text) {
       Swal.fire({
         title: text,
         showConfirmButton: false,
