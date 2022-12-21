@@ -19,7 +19,10 @@
             type="text"
             class="form-control my-2" />
         </div>
-        <button
+        <div v-if="saving_contact" class="text-center">
+        <b-spinner label="Loading..."></b-spinner>
+      </div>
+        <button v-else
           type="button"
           class="btn btn-success w-100 mt-2"
           @click="saveContact()">
@@ -47,7 +50,7 @@
         </button>
       </div>
 
-      <div v-if="contacts.length == 0" class="p-2 text-center">
+      <div v-if="contacts.length === 0" class="p-2 text-center">
         No contacts found
       </div>
 
@@ -65,12 +68,12 @@
             <th>{{ contact.name }}</th>
             <td>{{ contact.phone }}</td>
             <td>
-              <div v-if="contact.primary == 1">
+              <div v-if="contact.primary === 1">
                 <i class="fas fa-check-circle"></i>
               </div>
             </td>
             <td>
-              <div v-if="contact.primary == 0">
+              <div v-if="contact.primary === 0">
                 <button
                   type="button"
                   class="btn btn-success btn-sm"
@@ -79,7 +82,7 @@
                   <i class="fas fa-check-circle"></i>
                 </button>
                 <button
-                  v-if="contact.primary == 0"
+                  v-if="contact.primary === 0"
                   type="button"
                   class="btn btn-danger btn-sm"
                   title="Delete contact"
@@ -104,6 +107,7 @@ export default {
       contacts: [],
       add_contact: false,
       new_contact: {},
+      saving_contact: false,
     };
   },
 
@@ -118,47 +122,36 @@ export default {
 
       if (!this.new_contact.name) {
         this.sweetfire("Please enter contact name");
-        return;
       } else if (!this.new_contact.phone) {
         this.sweetfire("Please enter contact phone number");
-        return;
       }
 
-      axios
-        .post("/contacts/new", {
-          contact: this.new_contact,
-          shipper_id: selected_shipper.id,
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.getContacts(selected_shipper.id);
-          this.add_contact = false;
-          if (response.data.contact.primary == 1) {
-            this.$emit("update-shippers");
-          }
-        })
-        .catch(function (err) {
-          console.log(err);
-          this.loading = false;
-        });
+      else {
 
-      axios
-        .post("/contacts/new", {
-          contact: this.new_contact,
-          shipper_id: selected_shipper.id,
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.getContacts(selected_shipper.id);
-          this.add_contact = false;
-          if (response.data.contact.primary == 1) {
-            this.$emit("update-shippers");
-          }
-        })
-        .catch(function (err) {
-          console.log(err);
-          this.loading = false;
-        });
+        this.saving_contact = true;
+
+        axios
+          .post("/contacts/new", {
+            contact: this.new_contact,
+            shipper_id: selected_shipper.id,
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.getContacts(selected_shipper.id);
+            this.add_contact = false;
+            if (response.data.contact.primary === 1) {
+              this.$emit("update-shippers");
+            }
+            this.saving_contact = false;
+          })
+          .catch(function (err) {
+            console.log(err);
+            this.loading = false;
+            this.saving_contact = false;
+          });
+
+      }
+
     },
 
     makePrimary(contact_id) {

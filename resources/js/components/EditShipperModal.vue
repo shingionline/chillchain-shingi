@@ -14,7 +14,10 @@
             type="text"
             class="form-control my-2" />
         </div>
-        <button
+        <div v-if="saving_shipper" class="text-center">
+        <b-spinner label="Loading..."></b-spinner>
+      </div>
+        <button v-else
           type="button"
           class="btn btn-success w-100 mt-2"
           @click="editShipper()">
@@ -32,6 +35,7 @@ export default {
   data() {
     return {
       shipper: {},
+      saving_shipper: false,
     };
   },
 
@@ -52,20 +56,49 @@ export default {
 
       this.shipper.id = selected_shipper.id;
 
-      axios
-        .post("/shippers/update", {
-          shipper: this.shipper,
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.$emit("update-shippers");
-          this.$bvModal.hide("bv-modal-edit-shipper");
-        })
-        .catch(function (err) {
-          console.log(err);
-          this.loading = false;
-        });
+      if (!this.shipper.name) {
+        this.sweetfire("Please enter company name");
+      } else if (!this.shipper.address) {
+        this.sweetfire("Please enter company address");
+      }
+
+      else {
+
+          this.saving_shipper = true;
+
+          axios
+            .post("/shippers/update", {
+              shipper: this.shipper,
+            })
+            .then((response) => {
+              console.log(response.data);
+              this.$emit("update-shippers");
+              this.$bvModal.hide("bv-modal-edit-shipper");
+              this.saving_shipper = false;
+            })
+            .catch(function (err) {
+              console.log(err);
+              this.loading = false;
+              this.saving_shipper = false;
+            });
+
+      }
     },
+
+     sweetfire(text) {
+      Swal.fire({
+        title: text,
+        showConfirmButton: false,
+        showDenyButton: false,
+        showCancelButton: true,
+        focusConfirm: false,
+        cancelButtonText: "Ok",
+        customClass: {
+          title: "popup-title",
+        },
+      });
+    },
+
   },
 };
 </script>

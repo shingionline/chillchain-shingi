@@ -17,7 +17,7 @@
         <b-spinner label="Loading..."></b-spinner>
       </div>
 
-      <div v-else-if="shippers.length == 0" class="p-2 text-center">
+      <div v-else-if="shippers.length === 0" class="p-2 text-center">
         No shippers found
       </div>
 
@@ -45,7 +45,7 @@
                 {{ shipper.contacts[0].phone }}
               </div>
             </td>
-            <td>
+            <td class="nowrap">
               <button
                 type="button"
                 class="btn btn-primary"
@@ -78,7 +78,7 @@
     </div>
 
     <!-- Modal components -->
-    <Add-shipper-modal 
+    <Add-shipper-modal
       @update-shippers="getShippers"
       ref="addShipper"></Add-shipper-modal>
 
@@ -132,18 +132,18 @@ export default {
     },
 
     showModal(name, shipper_id, shipper_name) {
-      
+
       this.selected_shipper = '{"id":' + shipper_id + ', "name":"' + shipper_name + '"}';
 
-      if (name == "show-contacts") {
+      if (name === "show-contacts") {
         this.$refs.showContacts.getContacts(shipper_id);
       }
 
-      if (name == "add-shipper") {
+      if (name === "add-shipper") {
         this.$refs.addShipper.resetForm();
       }
 
-      if (name == "edit-shipper") {
+      if (name === "edit-shipper") {
         this.$refs.editShipper.getInfo(shipper_id);
       }
 
@@ -157,4 +157,5 @@ export default {
 h3 { font-family: 'Lexend Deca', sans-serif; font-size: 2rem !important;}
 h3, small { color: #fff; }
 small { font-style: italic; }
+.nowrap { white-space: nowrap; }
 </style>

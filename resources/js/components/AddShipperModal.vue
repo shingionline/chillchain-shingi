@@ -17,7 +17,10 @@
             type="text"
             class="form-control my-2" />
         </div>
-        <button
+        <div v-if="saving_shipper" class="text-center">
+        <b-spinner label="Loading..."></b-spinner>
+      </div>
+        <button v-else
           type="button"
           class="btn btn-success w-100 mt-2"
           @click="saveShipper()">
@@ -33,6 +36,7 @@ export default {
   data() {
     return {
       new_shipper: {},
+      saving_shipper: false,
     };
   },
 
@@ -44,25 +48,31 @@ export default {
     saveShipper() {
       if (!this.new_shipper.name) {
         this.sweetfire("Please enter company name");
-        return;
       } else if (!this.new_shipper.address) {
         this.sweetfire("Please enter company address");
-        return;
       }
 
-      axios
-        .post("/shippers/new", {
-          shipper: this.new_shipper,
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.$bvModal.hide("bv-modal-add-shipper");
-          this.$emit("update-shippers");
-        })
-        .catch(function (err) {
-          console.log(err);
-          this.loading = false;
-        });
+      else {
+
+        this.saving_shipper = true;
+
+        axios
+          .post("/shippers/new", {
+            shipper: this.new_shipper,
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.$bvModal.hide("bv-modal-add-shipper");
+            this.$emit("update-shippers");
+            this.saving_shipper = false;
+          })
+          .catch(function (err) {
+            console.log(err);
+            this.loading = false;
+            this.saving_shipper = false;
+          });
+        }
+
     },
 
     sweetfire(text) {
