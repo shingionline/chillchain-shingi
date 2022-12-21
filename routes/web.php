@@ -30,6 +30,9 @@ Route::prefix('/shippers')->group(function () {
 
 Route::prefix('/contacts')->group(function () {
     Route::get('/get/{id}', [ContactController::class, 'get']);
+    Route::post('/make-primary', [ContactController::class, 'make_primary']);
+    Route::post('/new', [ContactController::class, 'new']);
+    Route::delete('/delete/{id}', [ContactController::class, 'delete']);
     // Route::get('/get-identity/{user_id}', [DocumentController::class, 'get_identity']);
     // Route::get('/get-residence/{user_id}', [DocumentController::class, 'get_residence']);
     // Route::get('/get-bank/{user_id}', [DocumentController::class, 'get_bank']);

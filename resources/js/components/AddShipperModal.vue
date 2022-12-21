@@ -4,14 +4,14 @@
     <div>
       <form>
         <div class="form-group pb-2">
-          <label for="exampleInputEmail1">Company Name</label>
+          <label>Company Name</label>
           <input
             type="text"
             class="form-control mt-2"
             aria-describedby="emailHelp" />
         </div>
         <div class="form-group pb-2">
-          <label for="exampleInputPassword1">Address</label>
+          <label>Address</label>
           <input
             type="text"
             class="form-control my-2" />

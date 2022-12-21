@@ -8,8 +8,13 @@ class ShipperController extends Controller
 {
     public function get_all()
     {
-        $shippers = Shipper::orderBy('id', 'DESC')->get();
+        // get shippers and primary contacts
+        $shippers = Shipper::with(['contacts' => function($query) {
+            $query->where('primary',1);
+        }])->get();
 
         return $shippers;
     }
+
+
 }
