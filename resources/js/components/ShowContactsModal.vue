@@ -118,8 +118,6 @@ export default {
   },
 
   methods: {
-    updateFilter() {},
-
     showAddContact() {
       this.new_contact = {};
       this.add_contact = true;

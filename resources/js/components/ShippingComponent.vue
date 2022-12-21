@@ -29,7 +29,7 @@
             <th scope="col">Address</th>
             <th scope="col">Primary Contact Name</th>
             <th scope="col">Primary Contact Number</th>
-            <th scope="col">Action</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -94,12 +94,15 @@
 
     <!-- Modal components -->
 
-    <Add-shipper-modal></Add-shipper-modal>
+    <Add-shipper-modal
+      @update-shippers="getShippers"
+      ref="addShipper"
+    ></Add-shipper-modal>
     <Add-contact-modal></Add-contact-modal>
     <Show-contacts-modal
       :selected_shipper="selected_shipper"
       :contacts="contacts"
-      ref="childRefBox"
+      ref="showContacts"
       @update-shippers="getShippers"
     ></Show-contacts-modal>
     <Edit-shipper-modal></Edit-shipper-modal>
@@ -143,7 +146,11 @@ export default {
         '{"id":' + shipper_id + ', "name":"' + shipper_name + '"}';
 
       if (name == "show-contacts") {
-        this.$refs.childRefBox.getContacts(shipper_id);
+        this.$refs.showContacts.getContacts(shipper_id);
+      }
+
+      if (name == "add-shipper") {
+        this.$refs.addShipper.resetForm();
       }
 
       this.$bvModal.show(`bv-modal-${name}`);
