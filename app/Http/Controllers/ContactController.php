@@ -24,7 +24,7 @@ class ContactController extends Controller
         // set all contacts to not primary
         Contact::where('shipper_id', $shipper_id)->update(['primary' => 0]);
 
-        // set the selected contact to primary
+        // make the selected contact primary
         Contact::where('id', $contact_id)->update(['primary' => 1]);
 
         return response()->json(['success' => true, 'message' => 'Contact updated successfully']);
@@ -48,7 +48,7 @@ class ContactController extends Controller
         $name = $data['contact']['name'];
         $phone = $data['contact']['phone'];
 
-        // check if there is a primary contact
+        // check if there's a primary contact
         $check = Contact::where('shipper_id', $shipper_id)->where('primary', 1)->first();
 
         // if there is no primary contact, set this contact to primary

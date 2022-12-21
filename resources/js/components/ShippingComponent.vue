@@ -6,8 +6,7 @@
         <button
           type="button"
           class="btn btn-success"
-          @click="showModal('add-shipper', null)"
-        >
+          @click="showModal('add-shipper', null)">
           Add shipper
         </button>
       </div>
@@ -51,20 +50,14 @@
                 type="button"
                 class="btn btn-primary"
                 title="Show contacts"
-                @click="
-                  showModal('show-contacts', `${shipper.id}`, `${shipper.name}`)
-                "
-              >
+                @click="showModal('show-contacts', `${shipper.id}`, `${shipper.name}`)">
                 <i class="fas fa-user"></i>
               </button>
               <button
                 type="button"
                 class="btn btn-success"
                 title="Edit shipper"
-                @click="
-                  showModal('edit-shipper', `${shipper.id}`, `${shipper.name}`)
-                "
-              >
+                @click="showModal('edit-shipper', `${shipper.id}`, `${shipper.name}`)">
                 <i class="fas fa-edit"></i>
               </button>
               <button
@@ -72,13 +65,7 @@
                 class="btn btn-danger"
                 title="Delete shipper"
                 @click="
-                  showModal(
-                    'delete-shipper',
-                    `${shipper.id}`,
-                    `${shipper.name}`
-                  )
-                "
-              >
+                  showModal('delete-shipper',`${shipper.id}`,`${shipper.name}`)">
                 <i class="fas fa-trash"></i>
               </button>
             </td>
@@ -87,33 +74,29 @@
       </table>
     </div>
     <div class="row text-end my-3">
-      <small class="font-italic"
-        >Chill-Chain assessment by Shingi Mushipe</small
-      >
+      <small class="font-italic">Chill-Chain assessment by Shingi Mushipe</small>
     </div>
 
     <!-- Modal components -->
-
-    <Add-shipper-modal
+    <Add-shipper-modal 
       @update-shippers="getShippers"
-      ref="addShipper"
-    ></Add-shipper-modal>
+      ref="addShipper"></Add-shipper-modal>
 
     <Show-contacts-modal
       :selected_shipper="selected_shipper"
       :contacts="contacts"
       ref="showContacts"
-      @update-shippers="getShippers"
-    ></Show-contacts-modal>
+      @update-shippers="getShippers"></Show-contacts-modal>
+
     <Edit-shipper-modal
       :selected_shipper="selected_shipper"
       @update-shippers="getShippers"
-      ref="editShipper"
-    ></Edit-shipper-modal>
+      ref="editShipper"></Edit-shipper-modal>
+
     <Delete-shipper-modal
       :selected_shipper="selected_shipper"
-      @update-shippers="getShippers"
-    ></Delete-shipper-modal>
+      @update-shippers="getShippers"></Delete-shipper-modal>
+
   </div>
 </template>
 
@@ -149,8 +132,7 @@ export default {
     },
 
     showModal(name, shipper_id, shipper_name) {
-      this.selected_shipper =
-        '{"id":' + shipper_id + ', "name":"' + shipper_name + '"}';
+      this.selected_shipper = '{"id":' + shipper_id + ', "name":"' + shipper_name + '"}';
 
       if (name == "show-contacts") {
         this.$refs.showContacts.getContacts(shipper_id);
@@ -171,11 +153,6 @@ export default {
 </script>
 
 <style scoped>
-h3,
-small {
-  color: #fff;
-}
-small {
-  font-style: italic;
-}
+h3, small { color: #fff; }
+small { font-style: italic; }
 </style>

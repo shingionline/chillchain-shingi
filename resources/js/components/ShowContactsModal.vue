@@ -1,8 +1,6 @@
 <template>
   <b-modal id="bv-modal-show-contacts" hide-footer>
-    <template #modal-title
-      ><b>Contacts for {{ JSON.parse(selected_shipper).name }}</b></template
-    >
+    <template #modal-title><b>Contacts for {{ JSON.parse(selected_shipper).name }}</b></template>
 
     <!-- Add contact screen -->
     <div v-if="add_contact">
@@ -19,14 +17,12 @@
           <input
             v-model="new_contact.phone"
             type="text"
-            class="form-control my-2"
-          />
+            class="form-control my-2" />
         </div>
         <button
           type="button"
           class="btn btn-success w-100 mt-2"
-          @click="saveContact()"
-        >
+          @click="saveContact()">
           Save
         </button>
       </form>
@@ -34,8 +30,7 @@
         <button
           type="button"
           class="btn btn-danger btn-sm"
-          @click="add_contact = false"
-        >
+          @click="add_contact = false">
           Cancel
         </button>
       </div>
@@ -47,8 +42,7 @@
         <button
           type="button"
           class="btn btn-primary btn-sm"
-          @click="showAddContact()"
-        >
+          @click="showAddContact()">
           Add contact
         </button>
       </div>
@@ -81,8 +75,7 @@
                   type="button"
                   class="btn btn-success btn-sm"
                   title="Make primary"
-                  @click="makePrimary(`${contact.id}`)"
-                >
+                  @click="makePrimary(`${contact.id}`)">
                   <i class="fas fa-check-circle"></i>
                 </button>
                 <button
@@ -90,8 +83,7 @@
                   type="button"
                   class="btn btn-danger btn-sm"
                   title="Delete contact"
-                  @click="deleteContact(`${contact.id}`)"
-                >
+                  @click="deleteContact(`${contact.id}`)">
                   <i class="fas fa-trash"></i>
                 </button>
               </div>
@@ -127,9 +119,7 @@ export default {
       if (!this.new_contact.name) {
         this.sweetfire("Please enter contact name");
         return;
-      }
-
-      else if (!this.new_contact.phone) {
+      } else if (!this.new_contact.phone) {
         this.sweetfire("Please enter contact phone number");
         return;
       }
@@ -191,19 +181,17 @@ export default {
     },
 
     sweetfire(text) {
-
       Swal.fire({
-      title: text,
-      showConfirmButton: false,
-      showDenyButton: false,
-      showCancelButton: true,
-      focusConfirm: false,
-      cancelButtonText: 'Ok',
-      customClass: {
-              title: "popup-title",
-            },
-    })
-
+        title: text,
+        showConfirmButton: false,
+        showDenyButton: false,
+        showCancelButton: true,
+        focusConfirm: false,
+        cancelButtonText: "Ok",
+        customClass: {
+          title: "popup-title",
+        },
+      });
     },
 
     deleteContact(contact_id) {

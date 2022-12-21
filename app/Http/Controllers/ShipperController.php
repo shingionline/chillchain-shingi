@@ -17,11 +17,11 @@ class ShipperController extends Controller
     public function get_all()
     {
         // get all shippers with their primary contact
-        $shippers = Shipper::with(['contacts' => function($query) {
-            $query->where('primary',1);
+        $shippers = Shipper::with(['contacts' => function ($query) {
+            $query->where('primary', 1);
         }])
-        ->orderBy('id', 'DESC')
-        ->get();
+            ->orderBy('id', 'DESC')
+            ->get();
 
         return $shippers;
     }
@@ -63,11 +63,9 @@ class ShipperController extends Controller
         $shipper = Shipper::find($id);
         $shipper->delete();
 
-        // delete all contacts associated with this shipper
+        // delete all contacts for this shipper
         $shipper->contacts()->delete();
 
         return response()->json(['success' => true, 'message' => 'Shipper deleted successfully']);
     }
-
-
 }

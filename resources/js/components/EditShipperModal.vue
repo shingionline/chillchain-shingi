@@ -12,14 +12,12 @@
           <input
             v-model="shipper.address"
             type="text"
-            class="form-control my-2"
-          />
+            class="form-control my-2" />
         </div>
         <button
           type="button"
           class="btn btn-success w-100 mt-2"
-          @click="editShipper()"
-        >
+          @click="editShipper()">
           Save
         </button>
       </form>

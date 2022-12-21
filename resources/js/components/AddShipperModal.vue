@@ -8,23 +8,19 @@
           <input
             v-model="new_shipper.name"
             type="text"
-            class="form-control mt-2"
-            
-          />
+            class="form-control mt-2" />
         </div>
         <div class="form-group pb-2">
           <label>Address</label>
           <input
             v-model="new_shipper.address"
             type="text"
-            class="form-control my-2"
-          />
+            class="form-control my-2" />
         </div>
         <button
           type="button"
           class="btn btn-success w-100 mt-2"
-          @click="saveShipper()"
-        >
+          @click="saveShipper()">
           Save
         </button>
       </form>
@@ -46,13 +42,10 @@ export default {
     },
 
     saveShipper() {
-
       if (!this.new_shipper.name) {
         this.sweetfire("Please enter company name");
         return;
-      }
-
-      else if (!this.new_shipper.address) {
+      } else if (!this.new_shipper.address) {
         this.sweetfire("Please enter company address");
         return;
       }
@@ -73,21 +66,18 @@ export default {
     },
 
     sweetfire(text) {
-
       Swal.fire({
-      title: text,
-      showConfirmButton: false,
-      showDenyButton: false,
-      showCancelButton: true,
-      focusConfirm: false,
-      cancelButtonText: 'Ok',
-      customClass: {
-              title: "popup-title",
-            },
-    })
-
+        title: text,
+        showConfirmButton: false,
+        showDenyButton: false,
+        showCancelButton: true,
+        focusConfirm: false,
+        cancelButtonText: "Ok",
+        customClass: {
+          title: "popup-title",
+        },
+      });
     },
-
   },
 };
 </script>
