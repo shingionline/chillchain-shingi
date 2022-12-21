@@ -9,7 +9,7 @@
             v-model="new_shipper.name"
             type="text"
             class="form-control mt-2"
-            aria-describedby="emailHelp"
+            
           />
         </div>
         <div class="form-group pb-2">
@@ -44,8 +44,19 @@ export default {
     resetForm() {
       this.new_shipper = {};
     },
-    
+
     saveShipper() {
+
+      if (!this.new_shipper.name) {
+        this.sweetfire("Please enter company name");
+        return;
+      }
+
+      else if (!this.new_shipper.address) {
+        this.sweetfire("Please enter company address");
+        return;
+      }
+
       axios
         .post("/shippers/new", {
           shipper: this.new_shipper,
@@ -60,6 +71,23 @@ export default {
           this.loading = false;
         });
     },
+
+    sweetfire(text) {
+
+      Swal.fire({
+      title: text,
+      showConfirmButton: false,
+      showDenyButton: false,
+      showCancelButton: true,
+      focusConfirm: false,
+      cancelButtonText: 'Ok',
+      customClass: {
+              title: "popup-title",
+            },
+    })
+
+    },
+
   },
 };
 </script>

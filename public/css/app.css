@@ -10828,3 +10828,15 @@ body {
     max-width: 1140px !important;
   }
 }
+h2#swal2-title.swal2-title.popup-title, #swal2-title.swal2-title.popup-title.h2 {
+  position: relative;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.8em 1em 0;
+  color: #212121 !important;
+  font-size: 1.2rem !important;
+  font-weight: normal !important;
+  text-align: center;
+  text-transform: none;
+  word-wrap: break-word;
+}

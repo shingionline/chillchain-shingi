@@ -20,7 +20,10 @@ Route::get('/', [SiteController::class, 'index']);
 
 Route::prefix('/shippers')->group(function () {
     Route::get('/get-all', [ShipperController::class, 'get_all']);
+    Route::get('/get/{id}', [ShipperController::class, 'get_single']);
     Route::post('/new', [ShipperController::class, 'new']);
+    Route::post('/update', [ShipperController::class, 'update']);
+    Route::delete('/delete/{id}', [ShipperController::class, 'delete']);
 });
 
 Route::prefix('/contacts')->group(function () {

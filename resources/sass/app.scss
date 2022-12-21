@@ -17,3 +17,16 @@ body {
     }
   }
 
+  h2#swal2-title.swal2-title.popup-title {
+    position: relative;
+    max-width: 100%;
+    margin: 0;
+    padding: .8em 1em 0;
+    color: #212121 !important;
+    font-size: 1.2rem !important;
+    font-weight: normal !important;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
+  }
+

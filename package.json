@@ -25,6 +25,7 @@
         "webpack-cli": "^5.0.1"
     },
     "dependencies": {
-        "bootstrap-vue": "^2.23.1"
+        "bootstrap-vue": "^2.23.1",
+        "sweetalert2": "^11.6.16"
     }
 }

@@ -8,13 +8,11 @@
     <div v-if="add_contact">
       <form>
         <div class="form-group pb-2">
-          <label>Company Name</label>
+          <label>Contact Name</label>
           <input
             v-model="new_contact.name"
             type="text"
-            class="form-control mt-2"
-            aria-describedby="emailHelp"
-          />
+            class="form-control mt-2" />
         </div>
         <div class="form-group pb-2">
           <label>Contact Number</label>
@@ -126,6 +124,34 @@ export default {
     saveContact() {
       let selected_shipper = JSON.parse(this.selected_shipper);
 
+      if (!this.new_contact.name) {
+        this.sweetfire("Please enter contact name");
+        return;
+      }
+
+      else if (!this.new_contact.phone) {
+        this.sweetfire("Please enter contact phone number");
+        return;
+      }
+
+      axios
+        .post("/contacts/new", {
+          contact: this.new_contact,
+          shipper_id: selected_shipper.id,
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.getContacts(selected_shipper.id);
+          this.add_contact = false;
+          if (response.data.contact.primary == 1) {
+            this.$emit("update-shippers");
+          }
+        })
+        .catch(function (err) {
+          console.log(err);
+          this.loading = false;
+        });
+
       axios
         .post("/contacts/new", {
           contact: this.new_contact,
@@ -162,6 +188,22 @@ export default {
           console.log(err);
           this.loading = false;
         });
+    },
+
+    sweetfire(text) {
+
+      Swal.fire({
+      title: text,
+      showConfirmButton: false,
+      showDenyButton: false,
+      showCancelButton: true,
+      focusConfirm: false,
+      cancelButtonText: 'Ok',
+      customClass: {
+              title: "popup-title",
+            },
+    })
+
     },
 
     deleteContact(contact_id) {

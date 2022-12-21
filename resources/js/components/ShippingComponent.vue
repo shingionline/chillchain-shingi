@@ -98,15 +98,22 @@
       @update-shippers="getShippers"
       ref="addShipper"
     ></Add-shipper-modal>
-    <Add-contact-modal></Add-contact-modal>
+
     <Show-contacts-modal
       :selected_shipper="selected_shipper"
       :contacts="contacts"
       ref="showContacts"
       @update-shippers="getShippers"
     ></Show-contacts-modal>
-    <Edit-shipper-modal></Edit-shipper-modal>
-    <Delete-shipper-modal></Delete-shipper-modal>
+    <Edit-shipper-modal
+      :selected_shipper="selected_shipper"
+      @update-shippers="getShippers"
+      ref="editShipper"
+    ></Edit-shipper-modal>
+    <Delete-shipper-modal
+      :selected_shipper="selected_shipper"
+      @update-shippers="getShippers"
+    ></Delete-shipper-modal>
   </div>
 </template>
 
@@ -151,6 +158,10 @@ export default {
 
       if (name == "add-shipper") {
         this.$refs.addShipper.resetForm();
+      }
+
+      if (name == "edit-shipper") {
+        this.$refs.editShipper.getInfo(shipper_id);
       }
 
       this.$bvModal.show(`bv-modal-${name}`);
