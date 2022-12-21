@@ -1,6 +1,6 @@
 <template>
   <b-modal id="bv-modal-show-contacts" hide-footer>
-    <template #modal-title><b>Show Contacts</b></template>
+    <template #modal-title><b>Contacts for {{JSON.parse(selected_shipper).name}}</b></template>
     <div>
 
       <div class="text-center mb-2"><button type="button" class="btn btn-primary btn-sm" @click="showModal('add-contact',null)">Add contact</button></div>
@@ -36,7 +36,7 @@
 
 <script>
     export default {
-      props: ["contacts"],
+      props: ["contacts","selected_shipper"],
 
       data() {
     return {

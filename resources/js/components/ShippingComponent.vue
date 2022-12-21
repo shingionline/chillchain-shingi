@@ -35,9 +35,9 @@
       <td></td>
       <td></td>
       <td>
-        <button type="button" class="btn btn-primary" title="Show contacts" @click="showModal('show-contacts',`${shipper.id}`)"><i class="fas fa-user"></i></button>
-        <button type="button" class="btn btn-success" title="Edit shipper" @click="showModal('edit-shipper',`${shipper.id}`)"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-danger" title="Delete shipper" @click="showModal('delete-shipper',`${shipper.id}`)"><i class="fas fa-trash"></i></button>
+        <button type="button" class="btn btn-primary" title="Show contacts" @click="showModal('show-contacts',`${shipper.id}`,`${shipper.name}`)"><i class="fas fa-user"></i></button>
+        <button type="button" class="btn btn-success" title="Edit shipper" @click="showModal('edit-shipper',`${shipper.id}`,`${shipper.name}`)"><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-danger" title="Delete shipper" @click="showModal('delete-shipper',`${shipper.id}`,`${shipper.name}`)"><i class="fas fa-trash"></i></button>
     </td>
     </tr>
   </tbody>
@@ -49,7 +49,7 @@
 
 <Add-shipper-modal></Add-shipper-modal>
 <Add-contact-modal></Add-contact-modal>
-<Show-contacts-modal :shipper_id="selected_shipper" :contacts="contacts"></Show-contacts-modal>
+<Show-contacts-modal :selected_shipper="selected_shipper" :contacts="contacts"></Show-contacts-modal>
 <Edit-shipper-modal></Edit-shipper-modal>
 <Delete-shipper-modal></Delete-shipper-modal>
 
@@ -99,7 +99,7 @@
       this.contacts = [];
 
       axios
-        .get(`/contacts/get/${this.selected_shipper}`)
+        .get(`/contacts/get/${this.selected_shipper.id}`)
         .then((response) => {
           this.contacts = response.data;
         })
@@ -108,9 +108,9 @@
         });
     },
 
-      showModal(name,shipper_id) {
+      showModal(name,shipper_id,shipper_name) {
         
-        this.selected_shipper = shipper_id;
+        this.selected_shipper = '{"id":'+shipper_id+', "name":"'+shipper_name+'"}';
         this.getContacts();
         this.$bvModal.show(`bv-modal-${name}`);
       },
